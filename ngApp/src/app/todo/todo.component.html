@@ -1,0 +1,11 @@
+<h1>{{ title }}</h1>
+<input type = "text" class="def" placeholder = "Enter new task" #task />
+<br> <br>
+<button class="abc" (click)="addTask(task.value)">Add Task</button>
+
+<br>
+<ul  *ngFor="let item of list">
+    <li> {{item.name}} <button (click)="removeTask(item.id)" >Remove</button></li> 
+</ul>
+
+
