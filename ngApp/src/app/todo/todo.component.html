@@ -1,11 +1,34 @@
-<h1>{{ title }}</h1>
-<input type = "text" class="def" placeholder = "Enter new task" #task />
-<br> <br>
-<button class="abc" (click)="addTask(task.value)">Add Task</button>
+<section class="todo-shell card">
+  <div class="todo-head">
+    <div>
+      <h1>{{ title }}</h1>
+      <p>Track your daily work with a clean and simple flow.</p>
+    </div>
+    <span class="count-badge">{{ list.length }} tasks</span>
+  </div>
 
-<br>
-<ul  *ngFor="let item of list">
-    <li> {{item.name}} <button (click)="removeTask(item.id)" >Remove</button></li> 
-</ul>
+  <form class="todo-create" (ngSubmit)="addTask()" #todoForm="ngForm">
+    <input
+      type="text"
+      class="input"
+      placeholder="Enter a new task"
+      [(ngModel)]="newTask"
+      name="newTask"
+      required
+    >
+    <button class="btn btn-primary" type="submit" [disabled]="todoForm.invalid">Add Task</button>
+  </form>
 
+  <p class="text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
 
+  <ul class="todo-list" *ngIf="list.length; else emptyState">
+    <li *ngFor="let item of list; trackBy: trackByTodoId" class="todo-item">
+      <span>{{ item.name }}</span>
+      <button class="btn btn-remove" (click)="removeTask(item.id)">Remove</button>
+    </li>
+  </ul>
+
+  <ng-template #emptyState>
+    <p class="empty">No tasks yet. Add your first one above.</p>
+  </ng-template>
+</section>
