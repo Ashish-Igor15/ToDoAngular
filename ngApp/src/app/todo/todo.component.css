@@ -1,8 +1,74 @@
-.abc{
-    color: red;
-    height: 45px;
+.todo-shell {
+  padding: 1.2rem;
 }
 
-.def{
-    color: purple;
+.todo-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+h1 {
+  margin: 0;
+}
+
+p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
+.count-badge {
+  display: inline-block;
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.todo-create {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.65rem;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+}
+
+.btn-remove {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.btn-remove:hover {
+  background: #fecaca;
+}
+
+.empty {
+  margin-top: 1rem;
+  color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  .todo-create {
+    grid-template-columns: 1fr;
+  }
 }

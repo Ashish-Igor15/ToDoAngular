@@ -1,32 +1,41 @@
-import { Component, OnInit} from '@angular/core';
-import { AuthService } from '../auth.service';
-import { Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthPayload, AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  loginUserData: AuthPayload = { email: '', password: '' };
+  errorMessage = '';
 
-  constructor(private _auth: AuthService,
-     private router : Router){}
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
-  loginUserData = <any>{}
+  ngOnInit(): void {}
 
-  ngOnInit() {
-  }
+  loginUser(): void {
+    this.errorMessage = '';
 
-  loginUser () {
-    this._auth.loginUser(this.loginUserData)
-    .subscribe(
-      res => {
-        console.log(res)
-        this.router.navigate(['/todo'])
+    if (!this.loginUserData.email || !this.loginUserData.password) {
+      this.errorMessage = 'Please enter both email and password.';
+      return;
+    }
+
+    const payload = {
+      email: this.loginUserData.email.trim().toLowerCase(),
+      password: this.loginUserData.password,
+    };
+
+    this.auth.loginUser(payload).subscribe({
+      next: () => this.router.navigate(['/todo']),
+      error: (error) => {
+        this.errorMessage = error?.error?.message || 'Unable to login right now.';
       },
-      err => console.log(err)
-    ) 
+    });
   }
 }
-
-
